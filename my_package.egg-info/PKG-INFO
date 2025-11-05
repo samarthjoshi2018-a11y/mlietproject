@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: my_package
+Version: 0.1.0
+Author: Samarth joshi
+Author-email: samarthjoshi2018@gmail.com
+Requires-Dist: python-dotenv
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: pymongo
+Requires-Dist: certifi
+Requires-Dist: pymongo[srv]
+Requires-Dist: scipy
+Requires-Dist: scikit-learn
+Requires-Dist: mlflow
+Requires-Dist: pyaml
+Requires-Dist: dagshub
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: xgboost
+Requires-Dist: python-multipart
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
