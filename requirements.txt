@@ -13,4 +13,4 @@ fastapi
 uvicorn
 xgboost
 python-multipart
--e .
+# -e .
