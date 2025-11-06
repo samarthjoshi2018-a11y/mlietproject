@@ -1,0 +1,10 @@
+[ 2025-11-07 03:39:11,702 ] 97 werkzeug - WARNING -  * Debugger is active!
+[ 2025-11-07 03:39:11,716 ] 97 werkzeug - INFO -  * Debugger PIN: 140-301-633
+[ 2025-11-07 03:39:26,769 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:39:26] "GET / HTTP/1.1" 200 -
+[ 2025-11-07 03:39:31,287 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:39:31] "POST /predict HTTP/1.1" 200 -
+[ 2025-11-07 03:39:56,001 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:39:56] "GET / HTTP/1.1" 200 -
+[ 2025-11-07 03:40:10,475 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:40:10] "POST /predict HTTP/1.1" 200 -
+[ 2025-11-07 03:40:15,008 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:40:15] "GET / HTTP/1.1" 200 -
+[ 2025-11-07 03:40:20,577 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:40:20] "POST /predict HTTP/1.1" 200 -
+[ 2025-11-07 03:40:22,656 ] 97 werkzeug - INFO - 127.0.0.1 - - [07/Nov/2025 03:40:22] "GET / HTTP/1.1" 200 -
+[ 2025-11-07 03:40:53,094 ] 97 werkzeug - INFO -  * Detected change in 'C:\\Users\\samar\\OneDrive\\Desktop\\ProjectFinal\\main.py', reloading

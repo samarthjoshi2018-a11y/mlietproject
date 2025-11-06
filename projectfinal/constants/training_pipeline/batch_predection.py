@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import sys
 from projectfinal.utils.main_utils.utils import load_object
+from projectfinal.exception.exception import MyException
 
 class SimplePredictor:
     def __init__(self):

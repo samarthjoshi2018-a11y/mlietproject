@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .error-card { background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; padding: 20px; color: #721c24; }
+        .back-btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 15px; }
+        .back-btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Error</h2>
+    <div class="error-card">
+        <h3>Something went wrong</h3>
+        <p><strong>Error:</strong> {{ error }}</p>
+    </div>
+    <a href="/" class="back-btn">Go Back</a>
+</body>
+</html>
