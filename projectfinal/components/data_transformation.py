@@ -42,9 +42,8 @@ class DataTransformation:
         
         # Calculate statistics for each user
         user_stats = df.groupby('userid').agg({
-            'speed': ['mean', 'std', 'max', 'min'],
+            'temprature': ['mean', 'std', 'max', 'min'],
             'frequency_crossing': ['mean', 'std', 'max'],
-            'zoneradius': ['mean', 'std'],
             'hour': ['mean', 'std'],  # Typical active hours
             'time_of_day_encoded': lambda x: x.mode()[0] if len(x.mode()) > 0 else -1  # Most common time
         }).round(3)
@@ -80,17 +79,17 @@ class DataTransformation:
                 user_mask = df_processed['userid'] == user_id
                 
                 # Deviation from personal norm (Z-score)
-                if profile['speed_std'] > 0:  # Avoid division by zero
-                    df_processed.loc[user_mask, 'speed_personal_z'] = (
-                        (df_processed.loc[user_mask, 'speed'] - profile['speed_mean']) / profile['speed_std']
+                if profile['temprature_std'] > 0:  # Avoid division by zero
+                    df_processed.loc[user_mask, 'temprature_personal_z'] = (
+                        (df_processed.loc[user_mask, 'temprature'] - profile['temprature_mean']) / profile['temprature_std']
                     )
                 else:
-                    df_processed.loc[user_mask, 'speed_personal_z'] = 0
+                    df_processed.loc[user_mask, 'temprature_personal_z'] = 0
                 
                 # Percentage of personal maximum
-                if profile['speed_max'] > 0:
-                    df_processed.loc[user_mask, 'speed_personal_pct_max'] = (
-                        df_processed.loc[user_mask, 'speed'] / profile['speed_max']
+                if profile['temprature_max'] > 0:
+                    df_processed.loc[user_mask, 'temprature_personal_pct_max'] = (
+                        df_processed.loc[user_mask, 'temprature'] / profile['temprature_max']
                     )
                 
                 # Crossing frequency deviation
@@ -105,7 +104,7 @@ class DataTransformation:
                 ).astype(int)
                 
                 user_aware_features.extend([
-                    'speed_personal_z', 'speed_personal_pct_max', 
+                    'temprature_personal_z', 'temprature_personal_pct_max', 
                     'crossing_personal_z', 'unusual_active_hour'
                 ])
         
@@ -115,18 +114,18 @@ class DataTransformation:
             logging.warning(f"Found {len(missing_users)} users not in training profiles, using global averages")
             
             # Calculate global averages from training profiles
-            global_speed_mean = np.mean([p['speed_mean'] for p in self.user_behavior_profiles.values()])
-            global_speed_std = np.mean([p['speed_std'] for p in self.user_behavior_profiles.values()])
-            global_speed_max = np.max([p['speed_max'] for p in self.user_behavior_profiles.values()])
+            global_temprature_mean = np.mean([p['temprature_mean'] for p in self.user_behavior_profiles.values()])
+            global_temprature_std = np.mean([p['temprature_std'] for p in self.user_behavior_profiles.values()])
+            global_temprature_max = np.max([p['temprature_max'] for p in self.user_behavior_profiles.values()])
             
             for user_id in missing_users:
                 user_mask = df_processed['userid'] == user_id
                 
-                df_processed.loc[user_mask, 'speed_personal_z'] = (
-                    (df_processed.loc[user_mask, 'speed'] - global_speed_mean) / global_speed_std
+                df_processed.loc[user_mask, 'temprature_personal_z'] = (
+                    (df_processed.loc[user_mask, 'temprature'] - global_temprature_mean) / global_temprature_std
                 )
-                df_processed.loc[user_mask, 'speed_personal_pct_max'] = (
-                    df_processed.loc[user_mask, 'speed'] / global_speed_max
+                df_processed.loc[user_mask, 'temprature_personal_pct_max'] = (
+                    df_processed.loc[user_mask, 'temprature'] / global_temprature_max
                 )
                 df_processed.loc[user_mask, 'crossing_personal_z'] = 0  # Neutral value
                 df_processed.loc[user_mask, 'unusual_active_hour'] = 0  # Assume normal
@@ -146,7 +145,6 @@ class DataTransformation:
         df_processed = df.copy()
         # 🆕 DON'T drop userid anymore - we need it for personalization
         # df_processed = df_processed.drop(columns=['zoneid', 'userid'], axis=1)
-        df_processed = df_processed.drop(columns=['zoneid'], axis=1)  # Only drop zoneid
         
         # Convert timestamp to datetime and extract useful features
         if 'timestamp' in df_processed.columns:
@@ -233,8 +231,8 @@ class DataTransformation:
                 logging.info(f"Applied forward/backward fill for {col}")
         
         # Strategy 2: For numeric features - use median (preserves distribution)
-        numeric_columns = ['speed', 'frequency_crossing', 'zoneradius', 'hour', 'month', 'day_of_week_encoded', 
-                          'time_of_day_encoded', 'speed_personal_z', 'speed_personal_pct_max', 'crossing_personal_z']
+        numeric_columns = ['temprature', 'frequency_crossing', '', 'hour', 'month', 'day_of_week_encoded', 
+                          'time_of_day_encoded', 'temprature_personal_z', 'temprature_personal_pct_max', 'crossing_personal_z']
         for col in numeric_columns:
             if col in df_processed.columns and df_processed[col].isnull().sum() > 0:
                 median_val = df_processed[col].median()
@@ -259,8 +257,6 @@ class DataTransformation:
             
             # 🆕 Keep userid for personalization
             # Only remove zoneid if present
-            if 'zoneid' in numeric_features:
-                numeric_features.remove('zoneid')
             
             logging.info(f"Numerical features for scaling: {numeric_features}")
             

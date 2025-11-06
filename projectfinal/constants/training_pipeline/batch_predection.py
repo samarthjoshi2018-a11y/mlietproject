@@ -24,9 +24,9 @@ class SimplePredictor:
         result = data.copy()
         
         # Simple deviation calculation
-        if 'speed_mean' in profile and 'speed_std' in profile:
-            speed_dev = (data.get('speed', 0) - profile['speed_mean']) / max(profile['speed_std'], 1)
-            result['speed_deviation'] = speed_dev
+        if 'temprature_mean' in profile and 'temprature_std' in profile:
+            temprature_dev = (data.get('temprature', 0) - profile['temprature_mean']) / max(profile['temprature_std'], 1)
+            result['temprature_deviation'] = temprature_dev
             
         if 'frequency_crossing_mean' in profile and 'frequency_crossing_std' in profile:
             cross_dev = (data.get('frequency_crossing', 0) - profile['frequency_crossing_mean']) / max(profile['frequency_crossing_std'], 1)
@@ -43,10 +43,10 @@ class SimplePredictor:
         reasons = []
         
         # Check each feature against user's normal pattern
-        if 'speed' in input_data and 'speed_mean' in profile and 'speed_std' in profile:
-            speed_dev = abs((input_data['speed'] - profile['speed_mean']) / max(profile['speed_std'], 1))
-            if speed_dev > 2.0:
-                reasons.append(f"speed ({input_data['speed']} vs normal {profile['speed_mean']})")
+        if 'temprature' in input_data and 'temprature_mean' in profile and 'temprature_std' in profile:
+            temprature_dev = abs((input_data['temprature'] - profile['temprature_mean']) / max(profile['temprature_std'], 1))
+            if temprature_dev > 2.0:
+                reasons.append(f"temprature ({input_data['temprature']} vs normal {profile['temprature_mean']})")
         
         if 'frequency_crossing' in input_data and 'frequency_crossing_mean' in profile:
             cross_dev = abs((input_data['frequency_crossing'] - profile['frequency_crossing_mean']) / max(profile.get('frequency_crossing_std', 1), 1))

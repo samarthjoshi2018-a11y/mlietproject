@@ -42,7 +42,7 @@ function predictUserBehavior(testData) {
 // Test data
 const testData = {
     user_id: 15,
-    speed: 100,
+    temprature: 100,
     frequency_crossing: 2,
     zoneradius: 100,
     hour: 23,

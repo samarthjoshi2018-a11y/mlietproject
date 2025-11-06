@@ -14,16 +14,13 @@ collections:
   rawdata:
     description: "Primary collection storing user behavior data in geo-fenced zones"
     indexes:
-      - fields: ["zoneid"]
-        name: "zoneid_index"
-        unique: false
       - fields: ["userid"]
         name: "userid_index" 
         unique: false
       - fields: ["timestamp"]
         name: "timestamp_index"
         unique: false
-      - fields: ["zoneid", "userid", "timestamp"]
+      - fields: ["userid", "timestamp"]
         name: "composite_zone_user_time_index"
         unique: false
       - fields: ["behaviour"]
@@ -37,14 +34,6 @@ collections:
         description: "MongoDB unique identifier"
         example: "ObjectId('68fc5415574424324ecec28b')"
 
-      zoneid:
-        type: "integer"
-        required: true
-        description: "Unique identifier for geo-fenced zone"
-        validation:
-          min: 1
-          max: 10000
-        example: 19
 
       userid:
         type: "integer" 
@@ -95,10 +84,10 @@ collections:
         enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         example: "Wednesday"
 
-      speed:
+      temprature:
         type: "integer"
         required: true
-        description: "Movement speed in appropriate units"
+        description: "Movement temprature in appropriate units"
         validation:
           min: 0
           max: 200
@@ -120,15 +109,6 @@ collections:
           max: 50
         example: 8
 
-      zoneradius:
-        type: "integer"
-        required: true
-        description: "Radius of the geo-fenced zone in meters"
-        validation:
-          min: 50
-          max: 1000
-        example: 500
-
       behaviour:
         type: "string"
         required: true
@@ -139,14 +119,13 @@ collections:
 data_quality_rules:
   completeness:
     - "All fields must be present (no null values)"
-    - "Required fields: zoneid, userid, latitude, longitude, timestamp, behaviour"
+    - "Required fields: userid, latitude, longitude, timestamp, behaviour"
   
   validity:
-    - "zoneid must be positive integer"
     - "userid must be between 0-100"
     - "latitude must be between -90 and 90"
     - "longitude must be between -180 and 180"
-    - "speed must be between 0-200"
+    - "temprature must be between 0-200"
     - "timestamp must be valid ISODate"
 
   consistency:
@@ -156,19 +135,17 @@ data_quality_rules:
 ml_training_schema:
   target_variable: "behaviour"
   feature_columns:
-    - "zoneid"
     - "userid" 
     - "latitude"
     - "longitude"
-    - "speed"
+    - "temprature"
     - "frequency_crossing"
-    - "zoneradius"
     - "time_of_day_encoded"
     - "day_of_week_encoded"
     - "weather_conditions_encoded"
     - "hour"
     - "month"
-    - "speed_personal_z"
+    - "temprature_personal_z"
     - "crossing_personal_z"
     - "unusual_active_hour"
 
@@ -201,9 +178,9 @@ ml_training_schema:
       source: "timestamp" 
       description: "Extracted month from timestamp (1-12)"
     
-    speed_personal_z:
-      source: "speed + user_profiles"
-      description: "Z-score of speed relative to user's normal pattern"
+    temprature_personal_z:
+      source: "temprature + user_profiles"
+      description: "Z-score of temprature relative to user's normal pattern"
     
     crossing_personal_z:
       source: "frequency_crossing + user_profiles"
@@ -237,7 +214,6 @@ data_distribution_guidelines:
 api_endpoints:
   data_ingestion:
     - "POST /api/v1/behavior-data"
-    - "GET /api/v1/behavior-data/:zoneid"
     - "GET /api/v1/behavior-data/user/:userid"
   
   ml_predictions:
