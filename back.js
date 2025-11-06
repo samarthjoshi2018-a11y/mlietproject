@@ -2,7 +2,7 @@ const { spawn } = require('child_process');
 
 function callPythonPrediction() {
     const testData = {
-        user_id: 'USER003',
+        user_id: 'USER053',
         timestamp: '2025-08-20T02:17:18.456Z',
         temperature: 100,
         day_of_week: 4,
