@@ -270,6 +270,7 @@ class ModelTrainer:
                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,
                 train_metric_artifact=user_performance,
                 test_metric_artifact=user_performance
+                
             )
             
             logging.info(f"🎉 TRUE per-user modeling completed successfully!")
@@ -288,4 +289,6 @@ class ModelTrainer:
            return model_trainer_artifact
         except Exception as e:
            raise MyException(e, sys)
+       
+       
        

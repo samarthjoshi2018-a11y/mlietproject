@@ -2,7 +2,7 @@
 # Database Schema for Geo-Fenced Security Behavior Monitoring System
 
 database:
-  name: "security_monitoring"
+  name: "users"
   collection: "rawdata"
   description: "Raw behavior data for user activity monitoring in geo-fenced zones"
 
@@ -10,221 +10,72 @@ schema_version: "1.0"
 created_date: "2025-01-30"
 last_updated: "2025-01-30"
 
-collections:
-  rawdata:
-    description: "Primary collection storing user behavior data in geo-fenced zones"
-    indexes:
-      - fields: ["userid"]
-        name: "userid_index" 
-        unique: false
-      - fields: ["timestamp"]
-        name: "timestamp_index"
-        unique: false
-      - fields: ["userid", "timestamp"]
-        name: "composite_zone_user_time_index"
-        unique: false
-      - fields: ["behaviour"]
-        name: "behaviour_index"
-        unique: false
+dataset_schema:
+  description: |
+    Schema for user behavior dataset used in anomaly detection.
+    Each record represents a user's environmental and behavioral state at a specific timestamp.
 
-    fields:
-      _id:
-        type: "ObjectId"
-        required: true
-        description: "MongoDB unique identifier"
-        example: "ObjectId('68fc5415574424324ecec28b')"
+  fields:
+    _id:
+      type: integer
+      description: Unique identifier for each record (auto-incremented or assigned)
+      required: true
 
+    user_id:
+      type: string
+      description: Unique user identifier (e.g., 'USER001', 'USER002')
+      required: true
 
-      userid:
-        type: "integer" 
-        required: true
-        description: "Unique identifier for user"
-        validation:
-          min: 0
-          max: 100
-        example: 10
+    timestamp:
+      type: datetime
+      description: Timestamp of the recorded data
+      format: ISO8601
+      example: "2025-08-20T02:17:18.456Z"
+      required: true
 
-      latitude:
-        type: "double"
-        required: true
-        description: "Geographic latitude coordinate"
-        validation:
-          min: -90.0
-          max: 90.0
-          precision: 6
-        example: 39.9526
+    temperature:
+      type: integer
+      description: Temperature value at the time of recording
+      range: [-50, 60]
+      example: 13
+      required: true
 
-      longitude:
-        type: "double"
-        required: true
-        description: "Geographic longitude coordinate" 
-        validation:
-          min: -180.0
-          max: 180.0
-          precision: 6
-        example: -75.1652
-
-      timestamp:
-        type: "ISODate"
-        required: true
-        description: "Timestamp of the recorded activity"
-        example: "2024-01-17T07:15:00.000Z"
-
-      time_of_day:
-        type: "string"
-        required: true
-        description: "Categorical time period of the day"
-        enum: ["morning", "afternoon", "evening", "night"]
-        example: "morning"
-
-      day_of_week:
-        type: "string"
-        required: true
-        description: "Day of the week"
-        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-        example: "Wednesday"
-
-      temprature:
-        type: "integer"
-        required: true
-        description: "Movement temprature in appropriate units"
-        validation:
-          min: 0
-          max: 200
-        example: 24
-
-      weather_conditions:
-        type: "string"
-        required: true
-        description: "Weather condition at time of recording"
-        enum: ["Clear", "Cloudy", "Rain", "Fog", "Snow", "Storm", "Windy"]
-        example: "Fog"
-
-      frequency_crossing:
-        type: "integer"
-        required: true
-        description: "Frequency of zone boundary crossings"
-        validation:
-          min: 0
-          max: 50
-        example: 8
-
-      behaviour:
-        type: "string"
-        required: true
-        description: "Classified behavior label"
-        enum: ["normal", "anomalous"]
-        example: "normal"
-
-data_quality_rules:
-  completeness:
-    - "All fields must be present (no null values)"
-    - "Required fields: userid, latitude, longitude, timestamp, behaviour"
-  
-  validity:
-    - "userid must be between 0-100"
-    - "latitude must be between -90 and 90"
-    - "longitude must be between -180 and 180"
-    - "temprature must be between 0-200"
-    - "timestamp must be valid ISODate"
-
-  consistency:
-    - "time_of_day must match timestamp hour"
-    - "day_of_week must match timestamp day"
-
-ml_training_schema:
-  target_variable: "behaviour"
-  feature_columns:
-    - "userid" 
-    - "latitude"
-    - "longitude"
-    - "temprature"
-    - "frequency_crossing"
-    - "time_of_day_encoded"
-    - "day_of_week_encoded"
-    - "weather_conditions_encoded"
-    - "hour"
-    - "month"
-    - "temprature_personal_z"
-    - "crossing_personal_z"
-    - "unusual_active_hour"
-
-  categorical_encodings:
-    time_of_day:
-      morning: 0
-      afternoon: 1
-      evening: 2
-      night: 3
-    
     day_of_week:
-      Monday: 0
-      Tuesday: 1
-      Wednesday: 2
-      Thursday: 3
-      Friday: 4
-      Saturday: 5
-      Sunday: 6
-    
+      type: integer
+      description: Day of the week represented numerically (0 = Sunday, 6 = Saturday)
+      range: [0, 6]
+      required: true
+
+    time_of_the_day:
+      type: categorical
+      description: Time period of the day
+      allowed_values: ["morning", "afternoon", "evening", "night"]
+      required: true
+
+    weather_conditions:
+      type: categorical
+      description: Weather condition at the given timestamp
+      allowed_values: ["snowy", "rainy", "cloudy", "sunny"]
+      required: true
+
+    frequency_crossing:
+      type: integer
+      description: frequency_crossing value related to user's activity (e.g., signal or motion)
+      range: [0, 1000]
+      required: true
+
     behaviour:
-      normal: 0
-      anomalous: 1
+      type: categorical
+      description: User's behavioral status
+      allowed_values: ["normal", "anomalous"]
+      required: true
 
-  derived_features:
-    hour:
-      source: "timestamp"
-      description: "Extracted hour from timestamp (0-23)"
-    
-    month:
-      source: "timestamp" 
-      description: "Extracted month from timestamp (1-12)"
-    
-    temprature_personal_z:
-      source: "temprature + user_profiles"
-      description: "Z-score of temprature relative to user's normal pattern"
-    
-    crossing_personal_z:
-      source: "frequency_crossing + user_profiles"
-      description: "Z-score of crossing frequency relative to user's normal pattern"
-    
-    unusual_active_hour:
-      source: "hour + user_profiles"
-      description: "Binary indicator if activity hour is unusual for user"
-
-data_distribution_guidelines:
-  users_per_zone:
-    min: 1
-    max: 30
-    recommended: 5-15
-  
-  records_per_user:
-    min: 10
-    max: 1000
-    recommended: 50-200
-  
-  anomaly_ratio:
-    min: 0.05  # 5%
-    max: 0.25  # 25%
-    recommended: 0.10-0.15  # 10-15%
-
-  temporal_distribution:
-    - "Data should span at least 30 days"
-    - "Cover all days of week"
-    - "Cover all time periods (morning, afternoon, evening, night)"
-
-api_endpoints:
-  data_ingestion:
-    - "POST /api/v1/behavior-data"
-    - "GET /api/v1/behavior-data/user/:userid"
-  
-  ml_predictions:
-    - "POST /api/v1/predict"
-    - "GET /api/v1/model-info"
-    - "GET /api/v1/health"
-
-version_history:
-  "1.0":
-    date: "2025-01-30"
-    changes:
-      - "Initial schema definition"
-      - "Added ML training features"
-      - "Added data quality rules"
+  metadata:
+    total_features: 8
+    primary_key: "_id"
+    missing_values_allowed: false
+    target_variable: "behaviour"
+    categorical_features: ["time_of_the_day", "weather_conditions", "behaviour"]
+    numerical_features: ["_id", "temperature", "frequency_crossing", "day_of_week"]
+    timestamp_field: "timestamp"
+    identifier_fields: ["user_id"]

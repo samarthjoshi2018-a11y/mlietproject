@@ -1,0 +1,30 @@
+[ 2025-11-06 21:05:11,173 ] 29 root - INFO - Starting data ingestion
+[ 2025-11-06 21:05:11,956 ] 67 root - INFO - Performed train test split on the dataframe
+[ 2025-11-06 21:05:11,956 ] 69 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-11-06 21:05:11,957 ] 77 root - INFO - Exporting train and test file path.
+[ 2025-11-06 21:05:11,964 ] 86 root - INFO - Exported train and test file path.
+[ 2025-11-06 21:05:11,964 ] 31 root - INFO - Data ingestion completed
+[ 2025-11-06 21:05:11,971 ] 40 root - INFO - Starting data validation
+[ 2025-11-06 21:05:12,013 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:05:12,014 ] 35 root - INFO - Data frame has columns:7
+[ 2025-11-06 21:05:12,014 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:05:12,014 ] 35 root - INFO - Data frame has columns:7
+[ 2025-11-06 21:05:12,030 ] 42 root - INFO - Data validation completed
+[ 2025-11-06 21:05:12,030 ] 51 root - INFO - Starting data transformation
+[ 2025-11-06 21:05:12,030 ] 221 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-11-06 21:05:12,030 ] 223 root - INFO - Starting data transformation
+[ 2025-11-06 21:05:12,036 ] 170 root - INFO - Preprocessing categorical features for train
+[ 2025-11-06 21:05:12,044 ] 69 root - INFO - Creating user-aware features for train
+[ 2025-11-06 21:05:12,045 ] 39 root - INFO - Calculating user behavior profiles
+[ 2025-11-06 21:05:12,053 ] 64 root - INFO - Calculated behavior profiles for 20 users
+[ 2025-11-06 21:05:12,081 ] 163 root - INFO - Created user-aware features: ['unusual_active_hour', 'temperature_personal_pct_max', 'temperature_personal_z', 'crossing_personal_z']
+[ 2025-11-06 21:05:12,081 ] 215 root - INFO - After categorical processing - train columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:05:12,082 ] 170 root - INFO - Preprocessing categorical features for test
+[ 2025-11-06 21:05:12,085 ] 69 root - INFO - Creating user-aware features for test
+[ 2025-11-06 21:05:12,112 ] 163 root - INFO - Created user-aware features: ['unusual_active_hour', 'temperature_personal_pct_max', 'temperature_personal_z', 'crossing_personal_z']
+[ 2025-11-06 21:05:12,112 ] 215 root - INFO - After categorical processing - test columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:05:12,112 ] 53 root - INFO - Data transformation completed
+[ 2025-11-06 21:05:12,112 ] 62 root - INFO - Starting model trainer
+[ 2025-11-06 21:05:12,112 ] 160 root - INFO - Starting TRUE per-user model training
+[ 2025-11-06 21:05:12,112 ] 132 root - ERROR - Failed to load data: 'NoneType' object has no attribute 'transformed_train_file_path'
+[ 2025-11-06 21:05:12,112 ] 282 root - ERROR - TRUE per-user modeling failed: Error occured in script: C:\Users\samar\OneDrive\Desktop\ProjectFinal\projectfinal\components\model_trainer.py at line number: 105 with message: 'NoneType' object has no attribute 'transformed_train_file_path'

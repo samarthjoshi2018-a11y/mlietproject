@@ -1,0 +1,212 @@
+[ 2025-11-06 23:13:12,191 ] 29 root - INFO - Starting data ingestion
+[ 2025-11-06 23:13:12,951 ] 69 root - INFO - Performed train test split on the dataframe
+[ 2025-11-06 23:13:12,951 ] 71 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-11-06 23:13:12,951 ] 79 root - INFO - Exporting train and test file path.
+[ 2025-11-06 23:13:12,966 ] 88 root - INFO - Exported train and test file path.
+[ 2025-11-06 23:13:12,966 ] 31 root - INFO - Data ingestion completed
+[ 2025-11-06 23:13:12,972 ] 40 root - INFO - Starting data validation
+[ 2025-11-06 23:13:13,001 ] 34 root - INFO - Required number of columns:5
+[ 2025-11-06 23:13:13,001 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 23:13:13,001 ] 34 root - INFO - Required number of columns:5
+[ 2025-11-06 23:13:13,001 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 23:13:13,018 ] 42 root - INFO - Data validation completed
+[ 2025-11-06 23:13:13,018 ] 51 root - INFO - Starting data transformation
+[ 2025-11-06 23:13:13,018 ] 275 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-11-06 23:13:13,019 ] 277 root - INFO - Starting data transformation
+[ 2025-11-06 23:13:13,021 ] 44 root - INFO - Converted temperature: 800/800 values to numeric
+[ 2025-11-06 23:13:13,021 ] 44 root - INFO - Converted frequency_crossing: 800/800 values to numeric
+[ 2025-11-06 23:13:13,022 ] 44 root - INFO - Converted day_of_week: 800/800 values to numeric
+[ 2025-11-06 23:13:13,023 ] 44 root - INFO - Converted temperature: 200/200 values to numeric
+[ 2025-11-06 23:13:13,023 ] 44 root - INFO - Converted frequency_crossing: 200/200 values to numeric
+[ 2025-11-06 23:13:13,023 ] 44 root - INFO - Converted day_of_week: 200/200 values to numeric
+[ 2025-11-06 23:13:13,024 ] 290 root - INFO - Preprocessing categorical features
+[ 2025-11-06 23:13:13,024 ] 156 root - INFO - Preprocessing categorical features for train
+[ 2025-11-06 23:13:13,024 ] 165 root - INFO - Converted temperature to numeric in preprocessing
+[ 2025-11-06 23:13:13,024 ] 165 root - INFO - Converted frequency_crossing to numeric in preprocessing
+[ 2025-11-06 23:13:13,024 ] 165 root - INFO - Converted day_of_week to numeric in preprocessing
+[ 2025-11-06 23:13:13,030 ] 76 root - INFO - Creating user-aware features for train
+[ 2025-11-06 23:13:13,030 ] 52 root - INFO - Calculating user behavior profiles
+[ 2025-11-06 23:13:13,036 ] 71 root - INFO - Calculated behavior profiles for 20 users
+[ 2025-11-06 23:13:13,065 ] 151 root - INFO - Created user-aware features: ['temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,065 ] 190 root - INFO - After categorical processing - train columns: ['user_id', 'temperature', 'day_of_week', 'behaviour', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'weather_cloudy', 'weather_rainy', 'weather_snowy', 'weather_sunny', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,065 ] 156 root - INFO - Preprocessing categorical features for test
+[ 2025-11-06 23:13:13,065 ] 165 root - INFO - Converted temperature to numeric in preprocessing
+[ 2025-11-06 23:13:13,065 ] 165 root - INFO - Converted frequency_crossing to numeric in preprocessing
+[ 2025-11-06 23:13:13,065 ] 165 root - INFO - Converted day_of_week to numeric in preprocessing
+[ 2025-11-06 23:13:13,068 ] 76 root - INFO - Creating user-aware features for test
+[ 2025-11-06 23:13:13,094 ] 151 root - INFO - Created user-aware features: ['temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,094 ] 190 root - INFO - After categorical processing - test columns: ['user_id', 'temperature', 'day_of_week', 'behaviour', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'weather_cloudy', 'weather_rainy', 'weather_snowy', 'weather_sunny', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,094 ] 295 root - INFO - Cleaning target column
+[ 2025-11-06 23:13:13,094 ] 195 root - INFO - Cleaning target column for train dataset
+[ 2025-11-06 23:13:13,094 ] 195 root - INFO - Cleaning target column for test dataset
+[ 2025-11-06 23:13:13,095 ] 300 root - INFO - Removing invalid target rows
+[ 2025-11-06 23:13:13,096 ] 305 root - INFO - Handling feature missing values
+[ 2025-11-06 23:13:13,096 ] 223 root - INFO - Handling missing values for train
+[ 2025-11-06 23:13:13,096 ] 229 root - INFO - No missing values found in train features
+[ 2025-11-06 23:13:13,096 ] 223 root - INFO - Handling missing values for test
+[ 2025-11-06 23:13:13,096 ] 229 root - INFO - No missing values found in test features
+[ 2025-11-06 23:13:13,096 ] 310 root - INFO - Final train shape: (800, 15), test shape: (200, 15)
+[ 2025-11-06 23:13:13,097 ] 319 root - INFO - Creating and fitting preprocessor
+[ 2025-11-06 23:13:13,097 ] 250 root - INFO - Creating preprocessing pipeline
+[ 2025-11-06 23:13:13,097 ] 263 root - INFO - Numerical features for scaling: ['temperature', 'day_of_week', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,097 ] 329 root - INFO - Fitting preprocessor on: ['temperature', 'day_of_week', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,098 ] 335 root - INFO - Step 6: Transforming features using preprocessor
+[ 2025-11-06 23:13:13,100 ] 343 root - INFO - Saving preprocessor object
+[ 2025-11-06 23:13:13,104 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,105 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,105 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,106 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,107 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,108 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,108 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,109 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,109 ] 361 root - INFO - Saved feature columns: ['temperature', 'day_of_week', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:13:13,109 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,110 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:13,110 ] 365 root - INFO - Saved behavior profiles for 20 users
+[ 2025-11-06 23:13:13,110 ] 372 root - INFO - Data transformation completed successfully with user-aware features
+[ 2025-11-06 23:13:13,110 ] 53 root - INFO - Data transformation completed
+[ 2025-11-06 23:13:13,110 ] 62 root - INFO - Starting model trainer
+[ 2025-11-06 23:13:13,110 ] 160 root - INFO - Starting TRUE per-user model training
+[ 2025-11-06 23:13:13,141 ] 120 root - INFO - Loaded data with columns: ['temperature', 'day_of_week', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour', 'behaviour']
+[ 2025-11-06 23:13:13,152 ] 170 root - INFO - Training data: (800, 9), Test data: (200, 9)
+[ 2025-11-06 23:13:13,152 ] 171 root - INFO - Train users: 20, Test users: 20
+[ 2025-11-06 23:13:13,153 ] 177 root - INFO - Found 19 users with sufficient data for per-user modeling
+[ 2025-11-06 23:13:13,158 ] 178 root - INFO - User distribution: count    20.000000
+mean     40.000000
+std       6.797832
+min      28.000000
+25%      34.000000
+50%      39.000000
+75%      45.500000
+max      51.000000
+Name: count, dtype: float64
+[ 2025-11-06 23:13:13,160 ] 46 root - INFO - Training model for User USER012 with 51 samples
+[ 2025-11-06 23:13:13,204 ] 204 root - INFO - \u2705 User USER012: 0.833 accuracy, 51 train samples, 6 test samples
+[ 2025-11-06 23:13:13,204 ] 46 root - INFO - Training model for User USER005 with 50 samples
+[ 2025-11-06 23:13:13,238 ] 204 root - INFO - \u2705 User USER005: 0.750 accuracy, 50 train samples, 8 test samples
+[ 2025-11-06 23:13:13,239 ] 46 root - INFO - Training model for User USER017 with 50 samples
+[ 2025-11-06 23:13:13,280 ] 204 root - INFO - \u2705 User USER017: 0.917 accuracy, 50 train samples, 12 test samples
+[ 2025-11-06 23:13:13,280 ] 46 root - INFO - Training model for User USER018 with 47 samples
+[ 2025-11-06 23:13:13,316 ] 204 root - INFO - \u2705 User USER018: 0.500 accuracy, 47 train samples, 8 test samples
+[ 2025-11-06 23:13:13,316 ] 46 root - INFO - Training model for User USER020 with 47 samples
+[ 2025-11-06 23:13:13,351 ] 204 root - INFO - \u2705 User USER020: 0.625 accuracy, 47 train samples, 8 test samples
+[ 2025-11-06 23:13:13,352 ] 46 root - INFO - Training model for User USER002 with 45 samples
+[ 2025-11-06 23:13:13,386 ] 204 root - INFO - \u2705 User USER002: 0.889 accuracy, 45 train samples, 18 test samples
+[ 2025-11-06 23:13:13,387 ] 46 root - INFO - Training model for User USER010 with 44 samples
+[ 2025-11-06 23:13:13,421 ] 204 root - INFO - \u2705 User USER010: 0.875 accuracy, 44 train samples, 8 test samples
+[ 2025-11-06 23:13:13,422 ] 46 root - INFO - Training model for User USER004 with 42 samples
+[ 2025-11-06 23:13:13,456 ] 204 root - INFO - \u2705 User USER004: 0.733 accuracy, 42 train samples, 15 test samples
+[ 2025-11-06 23:13:13,456 ] 46 root - INFO - Training model for User USER013 with 39 samples
+[ 2025-11-06 23:13:13,492 ] 204 root - INFO - \u2705 User USER013: 0.818 accuracy, 39 train samples, 11 test samples
+[ 2025-11-06 23:13:13,493 ] 46 root - INFO - Training model for User USER001 with 39 samples
+[ 2025-11-06 23:13:13,536 ] 204 root - INFO - \u2705 User USER001: 0.562 accuracy, 39 train samples, 16 test samples
+[ 2025-11-06 23:13:13,537 ] 46 root - INFO - Training model for User USER011 with 39 samples
+[ 2025-11-06 23:13:13,579 ] 204 root - INFO - \u2705 User USER011: 0.846 accuracy, 39 train samples, 13 test samples
+[ 2025-11-06 23:13:13,580 ] 46 root - INFO - Training model for User USER006 with 39 samples
+[ 2025-11-06 23:13:13,620 ] 204 root - INFO - \u2705 User USER006: 0.545 accuracy, 39 train samples, 11 test samples
+[ 2025-11-06 23:13:13,621 ] 46 root - INFO - Training model for User USER019 with 39 samples
+[ 2025-11-06 23:13:13,658 ] 204 root - INFO - \u2705 User USER019: 0.846 accuracy, 39 train samples, 13 test samples
+[ 2025-11-06 23:13:13,659 ] 46 root - INFO - Training model for User USER016 with 36 samples
+[ 2025-11-06 23:13:13,696 ] 204 root - INFO - \u2705 User USER016: 1.000 accuracy, 36 train samples, 8 test samples
+[ 2025-11-06 23:13:13,697 ] 46 root - INFO - Training model for User USER014 with 34 samples
+[ 2025-11-06 23:13:13,736 ] 204 root - INFO - \u2705 User USER014: 1.000 accuracy, 34 train samples, 4 test samples
+[ 2025-11-06 23:13:13,737 ] 46 root - INFO - Training model for User USER007 with 34 samples
+[ 2025-11-06 23:13:13,766 ] 204 root - INFO - \u2705 User USER007: 0.600 accuracy, 34 train samples, 10 test samples
+[ 2025-11-06 23:13:13,767 ] 46 root - INFO - Training model for User USER003 with 33 samples
+[ 2025-11-06 23:13:13,801 ] 204 root - INFO - \u2705 User USER003: 0.727 accuracy, 33 train samples, 11 test samples
+[ 2025-11-06 23:13:13,802 ] 46 root - INFO - Training model for User USER009 with 32 samples
+[ 2025-11-06 23:13:13,842 ] 204 root - INFO - \u2705 User USER009: 0.667 accuracy, 32 train samples, 6 test samples
+[ 2025-11-06 23:13:13,843 ] 46 root - INFO - Training model for User USER015 with 32 samples
+[ 2025-11-06 23:13:13,878 ] 204 root - INFO - \u2705 User USER015: 0.667 accuracy, 32 train samples, 6 test samples
+[ 2025-11-06 23:13:13,880 ] 219 root - INFO - Training global model with 28 samples (1 users)
+[ 2025-11-06 23:13:13,880 ] 80 root - INFO - Training global model with 28 samples
+[ 2025-11-06 23:13:14,007 ] 227 root - INFO - \U0001f30d Global model: 0.750 accuracy, 0.000 precision, 0.000 recall
+[ 2025-11-06 23:13:14,017 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,019 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,019 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,021 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,021 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,023 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,023 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,024 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,025 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,027 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,027 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,028 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,028 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,032 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,032 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,035 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,035 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,038 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,039 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,041 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,041 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,043 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,043 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,045 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,045 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,049 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,049 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,052 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,052 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,054 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,054 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,056 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,056 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,059 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,059 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,061 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,061 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,063 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,064 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,067 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,067 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,070 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,070 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,072 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,072 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,074 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,074 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,076 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,076 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,080 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,080 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,083 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,083 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,085 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,085 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,087 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,087 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,089 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,089 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,092 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,092 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,095 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,095 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,097 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,097 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,099 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,100 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,101 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,102 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,103 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,104 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,105 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,105 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,107 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,108 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,109 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,109 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,114 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,114 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,118 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,118 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,119 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,119 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,120 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 23:13:14,120 ] 276 root - INFO - \U0001f389 TRUE per-user modeling completed successfully!
+[ 2025-11-06 23:13:14,120 ] 277 root - INFO - \U0001f4ca Trained 19 user models + global model
+[ 2025-11-06 23:13:14,120 ] 278 root - INFO - \U0001f4be Models saved to: Artifacts\11_06_2025_23_13_10\model_trainer\trained_model and final_model/
+[ 2025-11-06 23:13:14,120 ] 64 root - INFO - Model trainer completed

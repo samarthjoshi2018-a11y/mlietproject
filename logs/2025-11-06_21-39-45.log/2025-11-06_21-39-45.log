@@ -1,0 +1,49 @@
+[ 2025-11-06 21:39:47,201 ] 29 root - INFO - Starting data ingestion
+[ 2025-11-06 21:39:48,170 ] 67 root - INFO - Performed train test split on the dataframe
+[ 2025-11-06 21:39:48,170 ] 69 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-11-06 21:39:48,170 ] 77 root - INFO - Exporting train and test file path.
+[ 2025-11-06 21:39:48,177 ] 86 root - INFO - Exported train and test file path.
+[ 2025-11-06 21:39:48,177 ] 31 root - INFO - Data ingestion completed
+[ 2025-11-06 21:39:48,185 ] 40 root - INFO - Starting data validation
+[ 2025-11-06 21:39:48,225 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:39:48,225 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 21:39:48,225 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:39:48,225 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 21:39:48,247 ] 42 root - INFO - Data validation completed
+[ 2025-11-06 21:39:48,247 ] 51 root - INFO - Starting data transformation
+[ 2025-11-06 21:39:48,247 ] 245 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-11-06 21:39:48,247 ] 247 root - INFO - Starting data transformation
+[ 2025-11-06 21:39:48,253 ] 195 root - INFO - Preprocessing categorical features for train
+[ 2025-11-06 21:39:48,261 ] 69 root - INFO - Creating user-aware features for train
+[ 2025-11-06 21:39:48,261 ] 39 root - INFO - Calculating user behavior profiles
+[ 2025-11-06 21:39:48,271 ] 64 root - INFO - Calculated behavior profiles for 20 users
+[ 2025-11-06 21:39:48,299 ] 163 root - INFO - Created user-aware features: ['crossing_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour', 'temperature_personal_z']
+[ 2025-11-06 21:39:48,299 ] 240 root - INFO - After categorical processing - train columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'behaviour', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:39:48,299 ] 195 root - INFO - Preprocessing categorical features for test
+[ 2025-11-06 21:39:48,303 ] 69 root - INFO - Creating user-aware features for test
+[ 2025-11-06 21:39:48,330 ] 163 root - INFO - Created user-aware features: ['crossing_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour', 'temperature_personal_z']
+[ 2025-11-06 21:39:48,330 ] 240 root - INFO - After categorical processing - test columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'behaviour', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:39:48,330 ] 265 root - INFO - Final train shape: (800, 13), test shape: (200, 13)
+[ 2025-11-06 21:39:48,331 ] 275 root - INFO - Creating and fitting preprocessor
+[ 2025-11-06 21:39:48,331 ] 169 root - INFO - Creating preprocessing pipeline
+[ 2025-11-06 21:39:48,332 ] 182 root - INFO - Numerical features for scaling: ['temperature', 'day_of_week', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:39:48,333 ] 286 root - INFO - Step 6: Transforming features using preprocessor
+[ 2025-11-06 21:39:48,336 ] 294 root - INFO - Saving preprocessor object
+[ 2025-11-06 21:39:48,340 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,341 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,341 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,341 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,342 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,343 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,343 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,344 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,344 ] 312 root - INFO - Saved feature columns: ['temperature', 'day_of_week', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:39:48,344 ] 40 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,345 ] 44 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-11-06 21:39:48,345 ] 316 root - INFO - Saved behavior profiles for 20 users
+[ 2025-11-06 21:39:48,345 ] 323 root - INFO - Data transformation completed successfully with user-aware features
+[ 2025-11-06 21:39:48,345 ] 53 root - INFO - Data transformation completed
+[ 2025-11-06 21:39:48,346 ] 62 root - INFO - Starting model trainer
+[ 2025-11-06 21:39:48,346 ] 160 root - INFO - Starting TRUE per-user model training
+[ 2025-11-06 21:39:48,365 ] 132 root - ERROR - Failed to load data: Object arrays cannot be loaded when allow_pickle=False
+[ 2025-11-06 21:39:48,366 ] 282 root - ERROR - TRUE per-user modeling failed: Error occured in script: C:\Users\samar\OneDrive\Desktop\ProjectFinal\projectfinal\components\model_trainer.py at line number: 105 with message: Object arrays cannot be loaded when allow_pickle=False

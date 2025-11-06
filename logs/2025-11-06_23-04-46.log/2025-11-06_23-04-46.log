@@ -1,0 +1,46 @@
+[ 2025-11-06 23:04:48,304 ] 29 root - INFO - Starting data ingestion
+[ 2025-11-06 23:04:48,952 ] 69 root - INFO - Performed train test split on the dataframe
+[ 2025-11-06 23:04:48,952 ] 71 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-11-06 23:04:48,953 ] 79 root - INFO - Exporting train and test file path.
+[ 2025-11-06 23:04:48,959 ] 88 root - INFO - Exported train and test file path.
+[ 2025-11-06 23:04:48,959 ] 31 root - INFO - Data ingestion completed
+[ 2025-11-06 23:04:48,964 ] 40 root - INFO - Starting data validation
+[ 2025-11-06 23:04:48,992 ] 34 root - INFO - Required number of columns:5
+[ 2025-11-06 23:04:48,992 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 23:04:48,993 ] 34 root - INFO - Required number of columns:5
+[ 2025-11-06 23:04:48,993 ] 35 root - INFO - Data frame has columns:8
+[ 2025-11-06 23:04:49,011 ] 42 root - INFO - Data validation completed
+[ 2025-11-06 23:04:49,011 ] 51 root - INFO - Starting data transformation
+[ 2025-11-06 23:04:49,011 ] 271 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-11-06 23:04:49,011 ] 273 root - INFO - Starting data transformation
+[ 2025-11-06 23:04:49,014 ] 44 root - INFO - Converted temperature: 800/800 values to numeric
+[ 2025-11-06 23:04:49,015 ] 44 root - INFO - Converted frequency_crossing: 800/800 values to numeric
+[ 2025-11-06 23:04:49,015 ] 44 root - INFO - Converted day_of_week: 800/800 values to numeric
+[ 2025-11-06 23:04:49,017 ] 44 root - INFO - Converted temperature: 200/200 values to numeric
+[ 2025-11-06 23:04:49,017 ] 44 root - INFO - Converted frequency_crossing: 200/200 values to numeric
+[ 2025-11-06 23:04:49,018 ] 44 root - INFO - Converted day_of_week: 200/200 values to numeric
+[ 2025-11-06 23:04:49,018 ] 283 root - INFO - Preprocessing categorical features
+[ 2025-11-06 23:04:49,018 ] 156 root - INFO - Preprocessing categorical features for train
+[ 2025-11-06 23:04:49,027 ] 76 root - INFO - Creating user-aware features for train
+[ 2025-11-06 23:04:49,027 ] 52 root - INFO - Calculating user behavior profiles
+[ 2025-11-06 23:04:49,036 ] 71 root - INFO - Calculated behavior profiles for 20 users
+[ 2025-11-06 23:04:49,070 ] 151 root - INFO - Created user-aware features: ['temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 23:04:49,070 ] 188 root - INFO - After categorical processing - train columns: ['user_id', 'temperature', 'day_of_week', 'behaviour', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'weather_cloudy', 'weather_rainy', 'weather_snowy', 'weather_sunny', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:04:49,070 ] 156 root - INFO - Preprocessing categorical features for test
+[ 2025-11-06 23:04:49,074 ] 76 root - INFO - Creating user-aware features for test
+[ 2025-11-06 23:04:49,099 ] 151 root - INFO - Created user-aware features: ['temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 23:04:49,099 ] 188 root - INFO - After categorical processing - test columns: ['user_id', 'temperature', 'day_of_week', 'behaviour', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'weather_cloudy', 'weather_rainy', 'weather_snowy', 'weather_sunny', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:04:49,099 ] 288 root - INFO - Cleaning target column
+[ 2025-11-06 23:04:49,099 ] 193 root - INFO - Cleaning target column for train dataset
+[ 2025-11-06 23:04:49,100 ] 193 root - INFO - Cleaning target column for test dataset
+[ 2025-11-06 23:04:49,100 ] 293 root - INFO - Removing invalid target rows
+[ 2025-11-06 23:04:49,101 ] 298 root - INFO - Handling feature missing values
+[ 2025-11-06 23:04:49,101 ] 221 root - INFO - Handling missing values for train
+[ 2025-11-06 23:04:49,101 ] 227 root - INFO - No missing values found in train features
+[ 2025-11-06 23:04:49,101 ] 221 root - INFO - Handling missing values for test
+[ 2025-11-06 23:04:49,102 ] 227 root - INFO - No missing values found in test features
+[ 2025-11-06 23:04:49,102 ] 303 root - INFO - Final train shape: (800, 15), test shape: (200, 15)
+[ 2025-11-06 23:04:49,102 ] 312 root - INFO - Creating and fitting preprocessor
+[ 2025-11-06 23:04:49,102 ] 249 root - INFO - Creating preprocessing pipeline
+[ 2025-11-06 23:04:49,103 ] 259 root - INFO - Numerical features for scaling: ['temperature', 'day_of_week', 'frequency_crossing', 'month', 'hour', 'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'unusual_active_hour']
+[ 2025-11-06 23:04:49,103 ] 366 root - ERROR - Data transformation failed: could not convert string to float: 'temperature'

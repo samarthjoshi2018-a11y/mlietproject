@@ -1,0 +1,18 @@
+day_of_week:
+  drift_status: false
+  p_value: 0.2831059059484871
+temperature:
+  drift_status: false
+  p_value: 0.9983239159810353
+time_of_the_day:
+  drift_status: false
+  p_value: 0.7832521474862038
+timestamp:
+  drift_status: false
+  p_value: 0.5996320222918247
+user_id:
+  drift_status: false
+  p_value: 0.9745668612641823
+weather_conditions:
+  drift_status: false
+  p_value: 0.9279213695709337

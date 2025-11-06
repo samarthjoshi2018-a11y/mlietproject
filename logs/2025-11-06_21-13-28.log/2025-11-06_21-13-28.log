@@ -1,0 +1,27 @@
+[ 2025-11-06 21:13:29,511 ] 29 root - INFO - Starting data ingestion
+[ 2025-11-06 21:13:38,454 ] 67 root - INFO - Performed train test split on the dataframe
+[ 2025-11-06 21:13:38,454 ] 69 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-11-06 21:13:38,455 ] 77 root - INFO - Exporting train and test file path.
+[ 2025-11-06 21:13:38,461 ] 86 root - INFO - Exported train and test file path.
+[ 2025-11-06 21:13:38,461 ] 31 root - INFO - Data ingestion completed
+[ 2025-11-06 21:13:38,468 ] 40 root - INFO - Starting data validation
+[ 2025-11-06 21:13:38,486 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:13:38,487 ] 35 root - INFO - Data frame has columns:7
+[ 2025-11-06 21:13:38,487 ] 34 root - INFO - Required number of columns:6
+[ 2025-11-06 21:13:38,487 ] 35 root - INFO - Data frame has columns:7
+[ 2025-11-06 21:13:38,504 ] 42 root - INFO - Data validation completed
+[ 2025-11-06 21:13:38,504 ] 51 root - INFO - Starting data transformation
+[ 2025-11-06 21:13:38,504 ] 221 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-11-06 21:13:38,504 ] 223 root - INFO - Starting data transformation
+[ 2025-11-06 21:13:38,508 ] 170 root - INFO - Preprocessing categorical features for train
+[ 2025-11-06 21:13:38,515 ] 69 root - INFO - Creating user-aware features for train
+[ 2025-11-06 21:13:38,516 ] 39 root - INFO - Calculating user behavior profiles
+[ 2025-11-06 21:13:38,520 ] 64 root - INFO - Calculated behavior profiles for 20 users
+[ 2025-11-06 21:13:38,556 ] 163 root - INFO - Created user-aware features: ['temperature_personal_z', 'unusual_active_hour', 'temperature_personal_pct_max', 'crossing_personal_z']
+[ 2025-11-06 21:13:38,556 ] 215 root - INFO - After categorical processing - train columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:13:38,556 ] 170 root - INFO - Preprocessing categorical features for test
+[ 2025-11-06 21:13:38,559 ] 69 root - INFO - Creating user-aware features for test
+[ 2025-11-06 21:13:38,590 ] 163 root - INFO - Created user-aware features: ['temperature_personal_z', 'unusual_active_hour', 'temperature_personal_pct_max', 'crossing_personal_z']
+[ 2025-11-06 21:13:38,590 ] 215 root - INFO - After categorical processing - test columns: ['user_id', 'temperature', 'day_of_week', 'weather_conditions', 'frequency', 'month', 'hour', 'time_of_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z', 'unusual_active_hour']
+[ 2025-11-06 21:13:38,590 ] 240 root - INFO - Handling feature missing values
+[ 2025-11-06 21:13:38,590 ] 306 root - ERROR - Data transformation failed: 'DataTransformation' object has no attribute '_handle_feature_missing_values'

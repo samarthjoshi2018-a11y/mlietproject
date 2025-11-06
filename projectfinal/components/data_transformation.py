@@ -27,10 +27,23 @@ class DataTransformation:
         except Exception as e:
             raise MyException(e, sys)
     
-    @staticmethod
+    @staticmethod  # ✅ FIX: Only one @staticmethod
     def read_data(file_path) -> pd.DataFrame:
         try:
-            return pd.read_csv(file_path)
+            # ✅ FIX: Convert numeric columns explicitly
+            df = pd.read_csv(file_path)
+            
+            # Convert numeric columns that might be strings
+            numeric_columns = ['temperature', 'frequency_crossing', 'day_of_week']
+            for col in numeric_columns:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce')
+                    # Log conversion results
+                    converted_count = df[col].notna().sum()
+                    total_count = len(df[col])
+                    logging.info(f"Converted {col}: {converted_count}/{total_count} values to numeric")
+            
+            return df
         except Exception as e:
             raise MyException(e, sys)
     
@@ -41,11 +54,11 @@ class DataTransformation:
         user_profiles = {}
         
         # Calculate statistics for each user
-        user_stats = df.groupby('userid').agg({
-            'temprature': ['mean', 'std', 'max', 'min'],
+        user_stats = df.groupby('user_id').agg({
+            'temperature': ['mean', 'std', 'max', 'min'],
             'frequency_crossing': ['mean', 'std', 'max'],
             'hour': ['mean', 'std'],  # Typical active hours
-            'time_of_day_encoded': lambda x: x.mode()[0] if len(x.mode()) > 0 else -1  # Most common time
+            'time_of_the_day_encoded': lambda x: x.mode()[0] if len(x.mode()) > 0 else -1  # Most common time
         }).round(3)
         
         # Flatten column names
@@ -71,25 +84,25 @@ class DataTransformation:
         # 🆕 Create user-aware features
         user_aware_features = []
         
-        for user_id in df_processed['userid'].unique():
+        for user_id in df_processed['user_id'].unique():
             if user_id in self.user_behavior_profiles:
                 profile = self.user_behavior_profiles[user_id]
                 
                 # Features for this user
-                user_mask = df_processed['userid'] == user_id
+                user_mask = df_processed['user_id'] == user_id
                 
                 # Deviation from personal norm (Z-score)
-                if profile['temprature_std'] > 0:  # Avoid division by zero
-                    df_processed.loc[user_mask, 'temprature_personal_z'] = (
-                        (df_processed.loc[user_mask, 'temprature'] - profile['temprature_mean']) / profile['temprature_std']
+                if profile['temperature_std'] > 0:  # Avoid division by zero
+                    df_processed.loc[user_mask, 'temperature_personal_z'] = (
+                        (df_processed.loc[user_mask, 'temperature'] - profile['temperature_mean']) / profile['temperature_std']
                     )
                 else:
-                    df_processed.loc[user_mask, 'temprature_personal_z'] = 0
+                    df_processed.loc[user_mask, 'temperature_personal_z'] = 0
                 
                 # Percentage of personal maximum
-                if profile['temprature_max'] > 0:
-                    df_processed.loc[user_mask, 'temprature_personal_pct_max'] = (
-                        df_processed.loc[user_mask, 'temprature'] / profile['temprature_max']
+                if profile['temperature_max'] > -50:
+                    df_processed.loc[user_mask, 'temperature_personal_pct_max'] = (
+                        df_processed.loc[user_mask, 'temperature'] / profile['temperature_max']
                     )
                 
                 # Crossing frequency deviation
@@ -104,28 +117,28 @@ class DataTransformation:
                 ).astype(int)
                 
                 user_aware_features.extend([
-                    'temprature_personal_z', 'temprature_personal_pct_max', 
+                    'temperature_personal_z', 'temperature_personal_pct_max', 
                     'crossing_personal_z', 'unusual_active_hour'
                 ])
         
         # 🆕 For users not in training profiles (new users in test set), use global averages
-        missing_users = set(df_processed['userid'].unique()) - set(self.user_behavior_profiles.keys())
+        missing_users = set(df_processed['user_id'].unique()) - set(self.user_behavior_profiles.keys())
         if missing_users and dataset_name == "test":
             logging.warning(f"Found {len(missing_users)} users not in training profiles, using global averages")
             
             # Calculate global averages from training profiles
-            global_temprature_mean = np.mean([p['temprature_mean'] for p in self.user_behavior_profiles.values()])
-            global_temprature_std = np.mean([p['temprature_std'] for p in self.user_behavior_profiles.values()])
-            global_temprature_max = np.max([p['temprature_max'] for p in self.user_behavior_profiles.values()])
+            global_temperature_mean = np.mean([p['temperature_mean'] for p in self.user_behavior_profiles.values()])
+            global_temperature_std = np.mean([p['temperature_std'] for p in self.user_behavior_profiles.values()])
+            global_temperature_max = np.max([p['temperature_max'] for p in self.user_behavior_profiles.values()])
             
             for user_id in missing_users:
-                user_mask = df_processed['userid'] == user_id
+                user_mask = df_processed['user_id'] == user_id
                 
-                df_processed.loc[user_mask, 'temprature_personal_z'] = (
-                    (df_processed.loc[user_mask, 'temprature'] - global_temprature_mean) / global_temprature_std
+                df_processed.loc[user_mask, 'temperature_personal_z'] = (
+                    (df_processed.loc[user_mask, 'temperature'] - global_temperature_mean) / global_temperature_std
                 )
-                df_processed.loc[user_mask, 'temprature_personal_pct_max'] = (
-                    df_processed.loc[user_mask, 'temprature'] / global_temprature_max
+                df_processed.loc[user_mask, 'temperature_personal_pct_max'] = (
+                    df_processed.loc[user_mask, 'temperature'] / global_temperature_max
                 )
                 df_processed.loc[user_mask, 'crossing_personal_z'] = 0  # Neutral value
                 df_processed.loc[user_mask, 'unusual_active_hour'] = 0  # Assume normal
@@ -143,8 +156,13 @@ class DataTransformation:
         logging.info(f"Preprocessing categorical features for {dataset_name}")
         
         df_processed = df.copy()
-        # 🆕 DON'T drop userid anymore - we need it for personalization
-        # df_processed = df_processed.drop(columns=['zoneid', 'userid'], axis=1)
+        
+        # ✅ FIX: Convert numeric columns first
+        numeric_columns = ['temperature', 'frequency_crossing', 'day_of_week']
+        for col in numeric_columns:
+            if col in df_processed.columns:
+                df_processed[col] = pd.to_numeric(df_processed[col], errors='coerce')
+                logging.info(f"Converted {col} to numeric in preprocessing")
         
         # Convert timestamp to datetime and extract useful features
         if 'timestamp' in df_processed.columns:
@@ -153,22 +171,12 @@ class DataTransformation:
             df_processed['hour'] = df_processed['timestamp'].dt.hour
             df_processed = df_processed.drop('timestamp', axis=1)
         
-        # Handle time_of_day categorical variable
-        if 'time_of_day' in df_processed.columns:
+        # Handle time_of_the_day categorical variable
+        if 'time_of_the_day' in df_processed.columns:
             time_mapping = {'morning': 0, 'afternoon': 1, 'evening': 2, 'night': 3}
-            df_processed['time_of_day_encoded'] = df_processed['time_of_day'].map(time_mapping)
-            df_processed['time_of_day_encoded'] = df_processed['time_of_day_encoded'].fillna(-1)
-            df_processed = df_processed.drop('time_of_day', axis=1)
-        
-        # Handle day_of_week categorical variable  
-        if 'day_of_week' in df_processed.columns:
-            day_mapping = {
-                'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3,
-                'Friday': 4, 'Saturday': 5, 'Sunday': 6
-            }
-            df_processed['day_of_week_encoded'] = df_processed['day_of_week'].map(day_mapping)
-            df_processed['day_of_week_encoded'] = df_processed['day_of_week_encoded'].fillna(-1)
-            df_processed = df_processed.drop('day_of_week', axis=1)
+            df_processed['time_of_the_day_encoded'] = df_processed['time_of_the_day'].map(time_mapping)
+            df_processed['time_of_the_day_encoded'] = df_processed['time_of_the_day_encoded'].fillna(-1)
+            df_processed = df_processed.drop('time_of_the_day', axis=1)
         
         # Handle weather_conditions with one-hot encoding
         if 'weather_conditions' in df_processed.columns:
@@ -223,16 +231,9 @@ class DataTransformation:
         
         logging.info(f"Found {missing_before} missing values in {dataset_name}")
         
-        # Strategy 1: For critical location data - use forward fill (temporal consistency)
-        location_columns = ['latitude', 'longitude']
-        for col in location_columns:
-            if col in df_processed.columns and df_processed[col].isnull().sum() > 0:
-                df_processed[col] = df_processed[col].fillna(method='ffill').fillna(method='bfill')
-                logging.info(f"Applied forward/backward fill for {col}")
-        
         # Strategy 2: For numeric features - use median (preserves distribution)
-        numeric_columns = ['temprature', 'frequency_crossing', '', 'hour', 'month', 'day_of_week_encoded', 
-                          'time_of_day_encoded', 'temprature_personal_z', 'temprature_personal_pct_max', 'crossing_personal_z']
+        numeric_columns = ['temperature', 'frequency_crossing', 'hour', 'month', 'day_of_week', 
+                          'time_of_the_day_encoded', 'temperature_personal_z', 'temperature_personal_pct_max', 'crossing_personal_z']
         for col in numeric_columns:
             if col in df_processed.columns and df_processed[col].isnull().sum() > 0:
                 median_val = df_processed[col].median()
@@ -255,8 +256,9 @@ class DataTransformation:
             if TARGET_COLUMN in numeric_features:
                 numeric_features.remove(TARGET_COLUMN)
             
-            # 🆕 Keep userid for personalization
-            # Only remove zoneid if present
+            # Remove user_id if it was accidentally included
+            if 'user_id' in numeric_features:
+                numeric_features.remove('user_id')
             
             logging.info(f"Numerical features for scaling: {numeric_features}")
             
@@ -276,10 +278,13 @@ class DataTransformation:
             train_df = DataTransformation.read_data(self.data_validation_artifact.valid_train_file_path)
             test_df = DataTransformation.read_data(self.data_validation_artifact.valid_test_file_path)
 
-
-            train_user_ids = train_df['userid'].copy()
-            test_user_ids = test_df['userid'].copy()
+            # Convert user_id to string to avoid type issues
+            train_df['user_id'] = train_df['user_id'].astype(str)
+            test_df['user_id'] = test_df['user_id'].astype(str)
             
+            # Store user_ids as strings BEFORE preprocessing
+            train_user_ids = train_df['user_id'].copy()
+            test_user_ids = test_df['user_id'].copy()
             
             # STEP 1: Preprocess categorical features
             logging.info("Preprocessing categorical features")
@@ -313,12 +318,24 @@ class DataTransformation:
             # STEP 5: Create and fit preprocessor
             logging.info("Creating and fitting preprocessor")
             preprocessor = self._create_preprocessor(input_feature_train_df)
-            preprocessor_obj = preprocessor.fit(input_feature_train_df)
+            
+            # ✅ FIX: Get numeric features and fit on them
+            numeric_features_for_fit = input_feature_train_df.select_dtypes(include=[np.number]).columns.tolist()
+            if TARGET_COLUMN in numeric_features_for_fit:
+                numeric_features_for_fit.remove(TARGET_COLUMN)
+            if 'user_id' in numeric_features_for_fit:
+                numeric_features_for_fit.remove('user_id')
+            
+            logging.info(f"Fitting preprocessor on: {numeric_features_for_fit}")
+            
+            # ✅ FIX: Pass DataFrame subset, not list
+            preprocessor_obj = preprocessor.fit(input_feature_train_df[numeric_features_for_fit])
 
             # STEP 6: Transform features using preprocessor
             logging.info("Step 6: Transforming features using preprocessor")
-            transformed_input_train_feature = preprocessor_obj.transform(input_feature_train_df)
-            transformed_input_test_feature = preprocessor_obj.transform(input_feature_test_df)
+            # ✅ FIX: Transform same numeric features
+            transformed_input_train_feature = preprocessor_obj.transform(input_feature_train_df[numeric_features_for_fit])
+            transformed_input_test_feature = preprocessor_obj.transform(input_feature_test_df[numeric_features_for_fit])
             
             train_arr = np.c_[transformed_input_train_feature, np.array(target_feature_train_df)]
             test_arr = np.c_[transformed_input_test_feature, np.array(target_feature_test_df)]
@@ -328,19 +345,18 @@ class DataTransformation:
             save_numpy_array_data(self.data_transformation_config.transformed_test_file_path, array=test_arr)
             save_object(self.data_transformation_config.transformed_object_file_path, preprocessor_obj)
             save_object("final_model/preprocessor.pkl", preprocessor_obj)        
-            
-            
+        
+            # Save user_ids separately for per-user model training
             save_object(
-            self.data_transformation_config.transformed_object_file_path.replace('.pkl', '_user_ids.pkl'),
-            {
-                'train_user_ids': train_user_ids.values,
-                'test_user_ids': test_user_ids.values
-            }
-        )
-            
+                self.data_transformation_config.transformed_object_file_path.replace('.pkl', '_user_ids.pkl'),
+                {
+                    'train_user_ids': train_user_ids.values,
+                    'test_user_ids': test_user_ids.values
+                }
+            )
             
             # Save feature columns for reference
-            feature_columns = input_feature_train_df.columns.tolist()
+            feature_columns = numeric_features_for_fit  # Save only numeric features used in scaling
             save_object("final_model/feature_columns.pkl", feature_columns)
             logging.info(f"Saved feature columns: {feature_columns}")
 
