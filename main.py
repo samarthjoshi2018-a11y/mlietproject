@@ -7,26 +7,9 @@ from projectfinal.exception.exception import MyException
 from projectfinal.logging.logger import logging
 from projectfinal.constants.training_pipeline.training_pipeline import TrainingPipeline
 import sys
-from projectfinal.constants.training_pipeline.batch_predection import SimplePredictor
-import os  # ← ADDED THIS IMPORT
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from projectfinal.entity.config_entity import TrainingPipelineConfig
-
-app = Flask(__name__)
-CORS(app)
-predictor=SimplePredictor()
-
-# ← ADDED THESE ROUTES FOR HEALTH CHECKS
-@app.route('/')
-def home():
-    return jsonify({"message": "ML Model API is running!", "status": "healthy"})
-
-@app.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "healthy", "message": "API is running"})
-
 def run_training():
     try:
         print("🎯 Starting TRUE Per-User Model Training Pipeline...")
@@ -53,23 +36,11 @@ def run_training():
         
         
         
-@app.route('/predict', methods=['POST'])
-def predict_endpoint():
-    try:
-        data = request.json
-        user_id = data['user_id']
-        features = data.get('features',{})
-        
-        
-        result = predictor.predict(features, user_id)
-        return jsonify(result)
-    
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-    
-    
-    
+
+from projectfinal.constants.training_pipeline.batch_predection import SimplePredictor
+
 def main():
+    predictor = SimplePredictor()
     print("✅ Predictor loaded!")
     
     # Test with User 8 (who normally has speed ~45)
@@ -101,7 +72,4 @@ def main():
     return json_result
 
 if __name__ == "__main__":
-    # ← CHANGED THESE LINES FOR RAILWAY COMPATIBILITY
-    port = int(os.environ.get("PORT", 5000))  # ← USE RAILWAY'S PORT
-    print(f"🚀 Starting Flask server on port {port}...")  # ← ADDED LOG
-    app.run(host='0.0.0.0', port=port)  # ← USE DYNAMIC PORT
+    main()
