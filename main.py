@@ -69,4 +69,4 @@ def main():
         print(json.dumps({'error': str(e)}))
 
 if __name__ == "__main__":
-    main()
+    run_training()
