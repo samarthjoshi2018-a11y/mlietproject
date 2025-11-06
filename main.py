@@ -7,7 +7,17 @@ from projectfinal.exception.exception import MyException
 from projectfinal.logging.logger import logging
 from projectfinal.constants.training_pipeline.training_pipeline import TrainingPipeline
 import sys
+from projectfinal.constants.training_pipeline.batch_predection import SimplePredictor
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from projectfinal.entity.config_entity import TrainingPipelineConfig
+
+app = Flask(__name__)
+CORS(app)
+predictor=SimplePredictor()
+
+
 def run_training():
     try:
         print("🎯 Starting TRUE Per-User Model Training Pipeline...")
@@ -34,11 +44,23 @@ def run_training():
         
         
         
-
-from projectfinal.constants.training_pipeline.batch_predection import SimplePredictor
-
+@app.route('/predict', methods=['POST'])
+def predict_endpoint():
+    try:
+        data = request.json
+        user_id = data['user_id']
+        features = data.get('features',{})
+        
+        
+        result = predictor.predict(features, user_id)
+        return jsonify(result)
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+    
+    
 def main():
-    predictor = SimplePredictor()
     print("✅ Predictor loaded!")
     
     # Test with User 8 (who normally has speed ~45)
@@ -70,4 +92,4 @@ def main():
     return json_result
 
 if __name__ == "__main__":
-    main()
+    app.run(host='0.0.0.0', port=5000)
