@@ -1,0 +1,24 @@
+behaviour:
+  drift_status: false
+  p_value: 0.9999452308190822
+day_of_week:
+  drift_status: false
+  p_value: 0.8925487135483748
+frequency_crossing:
+  drift_status: false
+  p_value: 0.4071696292895992
+temperature:
+  drift_status: false
+  p_value: 0.1703573381409908
+time_of_the_day:
+  drift_status: false
+  p_value: 0.7684031278302821
+timestamp:
+  drift_status: false
+  p_value: 0.6399515222306993
+user_id:
+  drift_status: false
+  p_value: 0.9938718955732735
+weather_conditions:
+  drift_status: false
+  p_value: 0.9566936160026167
