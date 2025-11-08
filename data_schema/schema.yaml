@@ -27,7 +27,7 @@ dataset_schema:
       required: true
 
     timestamp:
-      type: datetime
+      type: ISODate
       description: Timestamp of the recorded data
       format: ISO8601
       example: "2025-08-20T02:17:18.456Z"

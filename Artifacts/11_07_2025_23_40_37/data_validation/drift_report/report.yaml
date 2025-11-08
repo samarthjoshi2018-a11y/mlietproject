@@ -1,0 +1,42 @@
+anomalous_probability:
+  drift_status: true
+  p_value: .nan
+anomaly_reason:
+  drift_status: true
+  p_value: .nan
+behavior:
+  drift_status: true
+  p_value: .nan
+behaviour:
+  drift_status: true
+  p_value: .nan
+feature_count:
+  drift_status: true
+  p_value: .nan
+frequency_crossing:
+  drift_status: false
+  p_value: 0.6244767529961134
+normal_probability:
+  drift_status: true
+  p_value: .nan
+prediction_confidence:
+  drift_status: true
+  p_value: .nan
+prediction_timestamp:
+  drift_status: true
+  p_value: .nan
+temperature:
+  drift_status: false
+  p_value: 0.157625777083553
+time_of_the_day:
+  drift_status: false
+  p_value: 0.8315995384633231
+timestamp:
+  drift_status: false
+  p_value: 0.9175720875033733
+used_user_model:
+  drift_status: true
+  p_value: .nan
+user_id:
+  drift_status: false
+  p_value: 0.6305554274786221

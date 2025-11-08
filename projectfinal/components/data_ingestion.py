@@ -28,9 +28,7 @@ class DataIngestion:
     
     
     def export_collection_as_dataframe(self):
-        """
-        Read data from mongodb
-        """
+         
         try:
             database_name=self.data_ingestion_config.database_name
             collection_name=self.data_ingestion_config.collection_name

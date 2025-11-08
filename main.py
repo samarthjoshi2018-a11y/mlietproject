@@ -19,13 +19,10 @@ def run_training():
     try:
         print("🎯 Starting Training Pipeline...")
         
-        # Initialize training pipeline configuration
         training_pipeline_config = TrainingPipelineConfig()
         
-        # Create training pipeline instance
         training_pipeline = TrainingPipeline(training_pipeline_config)
         
-        # Run the complete pipeline
         model_trainer_artifact = training_pipeline.run_pipeline()
         
         print("✨ Training Pipeline Completed Successfully!")
